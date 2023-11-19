@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import toast from 'react-hot-toast';
 import {
   SearchForm,
@@ -11,11 +11,10 @@ import {
 // Компонент приймає один проп onSubmit – функцію для передачі значення інпута під час сабміту форми.
 // Створює DOM - елемент наступної структури.
 
-export class Searchbar extends Component {
-  handleSubmit = event => {
+export const Searchbar = ({ onSubmit }) => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    const { onSubmit } = this.props;
     const { value: query } = event.target.elements.search;
 
     if (query === '') {
@@ -26,23 +25,21 @@ export class Searchbar extends Component {
     onSubmit(query);
   };
 
-  render() {
-    return (
-      <SearchbarHeader>
-        <SearchForm onSubmit={this.handleSubmit}>
-          <SearchFormButton type="submit">
-            <SearchFormButtonLabel>Search</SearchFormButtonLabel>
-          </SearchFormButton>
+  return (
+    <SearchbarHeader>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormButton type="submit">
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        </SearchFormButton>
 
-          <SearchFormInput
-            type="text"
-            name="search"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </SearchForm>
-      </SearchbarHeader>
-    );
-  }
-}
+        <SearchFormInput
+          type="text"
+          name="search"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </SearchForm>
+    </SearchbarHeader>
+  );
+};
